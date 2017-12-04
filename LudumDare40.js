@@ -102,7 +102,7 @@ function setup() {
 
   noCursor();
 
-  masterVolume(.2);
+  masterVolume(1);
 
   musicSound.loop();
 }
@@ -136,10 +136,11 @@ function draw() {
       if (tut1) text("Use WASD to move", width / 2, height / 2+20);
       if (tut2) text("Use Left Mouse to shoot", width / 2, height / 2+20);
       if (tut3) {
-        text("Some zombies drop hearts", width / 2, height / 2+20);
+        text("You can steal some", width / 2, height / 2-20);
+        text("zombie's hearts", width / 2, height / 2+60);
       }
       if (tut4) {
-        text("More hearts unlocked", width / 2, height / 2-50);
+        text("More hearts stolen", width / 2, height / 2-50);
         text("=", width / 2, height / 2+20);
         text("More enemies", width / 2, height / 2+70);
       }
@@ -201,6 +202,8 @@ function draw() {
                 invFrames = 0;
                 p.setLoc(createVector(width/2, height/2));
                 breakFrames = 240;
+                shotgun = 0;
+                speedUp = 0;
                 ee1 = false;
                 break;
               }
@@ -455,7 +458,7 @@ function Bullet(rotation) {
     for (var i = enemies.length-1; i >= 0; i--) {
       if (abs(loc.x - enemies[i].getLoc().x) <= 12 && abs(loc.y - enemies[i].getLoc().y) <= 12) {
         if (pickups.length <= 8) {
-          if (parseInt(random(1, 20)) == 1) pickups.push(new heartPickup(enemies[i].getLoc()));
+          if (parseInt(random(1, 15)) == 1) pickups.push(new heartPickup(enemies[i].getLoc()));
           else if (parseInt(random(1, 35)) == 1) pickups.push(new shotgunPickup(enemies[i].getLoc()));
           else if (parseInt(random(1, 35)) == 1) pickups.push(new speedPickup(enemies[i].getLoc()));
           else if (parseInt(random(1, 50)) == 1) pickups.push(new nukePickup(enemies[i].getLoc()));
@@ -656,7 +659,7 @@ function mousePressed() {
     if (mouseX >= width-50 && mouseY >= height-50 && mouseX <= width-28 && mouseY <= height-28) {
       soundOn = !soundOn; 
       if (soundOn) {
-        masterVolume(.2);
+        masterVolume(1);
       } else {
         masterVolume(0);
       }
